@@ -2,7 +2,9 @@ FROM alpine:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apk add net-tools openssh openssh-server openrc && /usr/bin/ssh-keygen -A
+RUN apk add net-tools openssh openssh-server openrc python3 bash && \
+    /usr/bin/ssh-keygen -A && \
+    ln /usr/bin/python3 /usr/bin/python
 
 RUN addgroup -g 1001 mgtgroup && \
      adduser -u 1001 -G mgtgroup -D -h /home/mgtuser --gecos "Ansible user" -s /bin/sh mgtuser && \
