@@ -1,0 +1,11 @@
+---
+- name: Install nginx
+  hosts: server_web_2
+  tasks:
+  - name: Install nginx on web servers
+    become: yes
+    become_user: root
+    apk:
+      name: nginx
+      state: present
+
