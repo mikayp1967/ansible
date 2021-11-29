@@ -2,7 +2,7 @@ FROM alpine:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apk add net-tools openssh openssh-server openrc python3 bash && \
+RUN apk add net-tools openssh openssh-server openrc python3 bash sudo && \
     /usr/bin/ssh-keygen -A && \
     ln /usr/bin/python3 /usr/bin/python
 
@@ -19,5 +19,6 @@ RUN chmod 600 /home/mgtuser/.ssh/* && chown mgtuser:mgtgroup -R /home/mgtuser/.s
     sed -i 's/^#PubkeyAuthentication/PubkeyAuthentication/' /etc/ssh/sshd_config 
 
 EXPOSE 22
+EXPOSE 80
 
 CMD ["/usr/sbin/sshd", "-D", "-o", "ListenAddress=0.0.0.0"]
