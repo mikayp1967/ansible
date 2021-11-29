@@ -1,6 +1,6 @@
 ---
 - name: Install nginx
-  hosts: server_web_2
+  hosts: [web]
   tasks:
   - name: Install nginx on web servers
     become: yes
@@ -9,3 +9,18 @@
       name: nginx
       state: present
 
+
+  - name: copy nginx conf
+    become: yes
+    become_user: root
+    copy: src=nginx_server_files/nginx.conf dest=/etc/nginx/http.d/default.conf
+  
+  - name: Copy simple index.html
+    become: yes
+    become_user: root
+    copy: src=nginx_server_files/index.html dest=/var/www/index.html
+
+  - name: Restart nginx
+    become: yes
+    become_user: root
+    service: name=nginx state=restarted enabled=yes

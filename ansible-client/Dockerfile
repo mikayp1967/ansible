@@ -8,7 +8,8 @@ RUN apk add net-tools openssh openssh-server openrc python3 bash sudo && \
 
 RUN addgroup -g 1001 mgtgroup && \
      adduser -u 1001 -G mgtgroup -D -h /home/mgtuser --gecos "Ansible user" -s /bin/sh mgtuser && \
-     passwd -u mgtuser      # Why is this ancient user creation locking the account. Grrr
+     passwd -u mgtuser && \
+     echo "mgtuser        ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers 
 
 RUN mkdir /home/mgtuser/.ssh && chmod 700 /home/mgtuser/.ssh 
 

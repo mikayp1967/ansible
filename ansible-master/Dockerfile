@@ -8,7 +8,8 @@ RUN apt update && \
 # Create user. Leave locked, just allow exec in to the pod then su
 RUN groupadd -g 1001 mgtgroup && \
     useradd -u 1001 -G mgtgroup  -d /home/mgtuser -m -s /usr/bin/bash mgtuser && \
-    mkdir /home/mgtuser/.ssh && chmod 700 /home/mgtuser/.ssh 
+    mkdir /home/mgtuser/.ssh && chmod 700 /home/mgtuser/.ssh && \
+    echo "umask 0000" >> ~mgtuser/.profile 
 
 COPY ./ssh-files /home/mgtuser/.ssh
 

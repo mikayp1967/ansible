@@ -1,0 +1,10 @@
+-
+  name: Test date
+  hosts: all
+  tasks:
+    - lineinfile:
+        path: myfile1
+        line: 'This is some random text'
+        state: present
+        create: yes
+
