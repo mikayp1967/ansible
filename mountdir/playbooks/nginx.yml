@@ -9,7 +9,6 @@
       name: nginx
       state: present
 
-
   - name: copy nginx conf
     become: yes
     become_user: root
@@ -18,7 +17,7 @@
   - name: Copy simple index.html
     become: yes
     become_user: root
-    copy: src=nginx_server_files/index.html dest=/var/www/index.html
+    template: src=nginx_server_files/template_index.html dest=/var/www/index.html mode=644
 
   - name: Restart nginx
     become: yes

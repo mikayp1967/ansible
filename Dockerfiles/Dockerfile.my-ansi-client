@@ -4,7 +4,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apk add net-tools openssh openssh-server openrc python3 bash sudo && \
     /usr/bin/ssh-keygen -A && \
-    ln /usr/bin/python3 /usr/bin/python
+    ln /usr/bin/python3 /usr/bin/python && \
+    mkdir -p /run/openrc && \
+    touch /run/openrc/softlevel
+    
 
 RUN addgroup -g 1001 mgtgroup && \
      adduser -u 1001 -G mgtgroup -D -h /home/mgtuser --gecos "Ansible user" -s /bin/sh mgtuser && \
@@ -22,5 +25,5 @@ RUN chmod 600 /home/mgtuser/.ssh/* && chown mgtuser:mgtgroup -R /home/mgtuser/.s
 EXPOSE 22
 EXPOSE 80
 
-
-CMD ["/usr/sbin/sshd", "-D", "-o", "ListenAddress=0.0.0.0"]
+ENTRYPOINT ["sh","-c", "rc-status; rc-service sshd start; crond -f"]
+# CMD ["/usr/sbin/sshd", "-D", "-o", "ListenAddress=0.0.0.0"]
