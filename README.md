@@ -10,23 +10,12 @@ I have a bridge network so the containers can talk, SSH from ansible master to t
 Basically I got a good to go playground
 
 
-## ansible-master
+## Dockerfiles directory
 
-Dir containing the Dockerfile to create the ansible master "server" image
-
-To build a new image: 
-
-        . ../dfwrapper.sh my-ansible
-
-## ansible-client
-
-Dir containing the Dockerfile to create the ansible client "server" images
-
-To build a new image: 
-
-        . ../dfwrapper.sh my-ansi-client
+Dir containing all the Dockerfiles. Instructions on builds are in there
 
 
 ## testenv
+
 Scripts to start/stop the ansible environment
 
