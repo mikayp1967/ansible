@@ -1,5 +1,0 @@
-# nginx startup issue
-
-If on file at /run/openrc/softlevel then run openrc then touch /run/openrc/nginx - then all works fine
-
-Or even try adding it to dockerfile
