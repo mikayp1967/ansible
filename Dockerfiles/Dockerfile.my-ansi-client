@@ -25,5 +25,5 @@ RUN chmod 600 /home/mgtuser/.ssh/* && chown mgtuser:mgtgroup -R /home/mgtuser/.s
 EXPOSE 22
 EXPOSE 80
 
+
 ENTRYPOINT ["sh","-c", "rc-status; rc-service sshd start; crond -f"]
-# CMD ["/usr/sbin/sshd", "-D", "-o", "ListenAddress=0.0.0.0"]

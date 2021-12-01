@@ -1,0 +1,41 @@
+---
+- name: Install curl
+  hosts: server_app_weather_1
+  tasks:
+  - name: Install curl
+    become: yes
+    become_user: root
+    apk:
+      name: curl
+      state: present
+
+  - name: Inform user
+    debug: 
+      msg: "Looking out the window.... (sorry this looks NASTY but leaving it in cos copy file functionality)" 
+
+
+  - name: Run curl to get weather
+    shell:
+      cmd: "curl wttr.in/barnsley > /tmp/weather-now" 
+      
+
+  - name: Get weather file (not needed now...)
+    fetch:
+      src: /tmp/weather-now
+      dest: /tmp/
+      flat: yes 
+
+  - name: cat to screen
+    shell:
+      cmd: "cat /tmp/weather-now"
+      stdin_add_newline: yes
+    register: weather_today
+
+  - name: Display to screen
+    debug: 
+      msg: "{{ weather_today.stdout_lines }}"
+
+  - name: Inform user more
+    debug: 
+      msg: "OK that looks nasty, you can cat the file locally:   cat /tmp/weather-now" 
+

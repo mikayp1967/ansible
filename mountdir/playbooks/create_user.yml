@@ -1,0 +1,28 @@
+---
+- name: Create a group
+  hosts: app_auth
+  tasks:
+    - name: Add group "ops"
+      become: true
+      group:
+        name: ops
+        state: present
+
+- name: Create users
+  hosts: app_auth
+  tasks:
+    - name: Add ops users
+      become: true
+      user: 
+        name: "{{ item.name }}"
+        groups: ops
+        password: "" 
+        shell: /bin/sh 
+        create_home: yes
+        append: yes 
+        state: "{{ item.state }}"
+      loop:
+        - { name: 'derek', state: 'present' }
+        - { name: 'steve', state: 'present' }
+        - { name: 'ben', state: 'absent' }
+        - { name: 'mikay', state: 'present' }
